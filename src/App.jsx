@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { PopupBar } from "./components/PopupBar";
+import { Form } from "./components/Form";
 
 function App() {
   const [show, setShow] = useState(false);
@@ -10,28 +10,28 @@ function App() {
   };
 
   useEffect(() => {
-    
+    console.log("popref:" , popupRef.current)
+    // Function to handle click outside
     function handleClickOutside(event) {
-      console.log("popref" , popupRef.current)
-      // Check if the popup is open and the click is outside the popup
-      
-      if (
-        show &&
-        popupRef.current 
-        
-      ) {
-        setShow(false); // Close the popup
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        console.log("inside the if condition",popupRef.current)
+        console.log(popupRef.current.contains(event.target))
+        setShow(false);
       }
     }
 
-    // Attach the click event listener to the document
-    document.addEventListener("mousedown",handleClickOutside );
+    // Add the event listener only if the dialog is open
+    // if (show) {
+    //   document.addEventListener("mousedown", handleClickOutside);
+    // }
 
-    // Cleanup the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup function to remove the event listener
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []); 
+  }, []);
 
   return (
     <div className="flex flex-col gap-5">
@@ -44,12 +44,18 @@ function App() {
           Add Employee
         </button>
       </div>
-      <div  className="w-[100%] h-[400px] border border-black"></div>
+      <div className="w-[100%] h-[400px] border border-black"></div>
 
       {show && (
-        <div >
-          <PopupBar popupRef={popupRef}  />
+        <div className=" fixed inset-0  flex items-center justify-center  bg-gray-300 bg-opacity-10 backdrop-blur-sm ">
+          <div ref={popupRef}>
+            
+            <Form />
+          </div>
         </div>
+        // <div>
+        //   <PopupBar popupRef={popupRef} />
+        // </div>
       )}
     </div>
   );
