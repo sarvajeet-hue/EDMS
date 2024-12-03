@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export const Form = () => {
+export const Form = ({setShow}) => {
 
     const {register , handleSubmit} = useForm()
     const [formData  , setFormData] = useState({})
     
    function onSubmitForm(data) {
         setFormData(data)
-       
-
+        setShow(false)
    }
-   
-
-
     
   return <div className="flex flex-col w-[500px]  border-black border p-3">
 

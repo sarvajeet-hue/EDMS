@@ -1,5 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { PopupBar } from "./components/PopupBar";
+import {Form} from "./components/Form"
+import { EmployerList } from "./components/EmployerList";
+import { Employer } from "./components/EmployerDetails";
 
 function App() {
   const [show, setShow] = useState(false);
@@ -10,27 +13,22 @@ function App() {
   };
 
   useEffect(() => {
+    console.log("popref.current", popupRef.current)
     
     function handleClickOutside(event) {
-      console.log("popref" , popupRef.current)
-      // Check if the popup is open and the click is outside the popup
+     
+
+      if(popupRef.current && !popupRef.current.contains(event.target)){
+        console.log("popupRef.curren" , popupRef.current)
       
-      if (
-        show &&
-        popupRef.current 
-        
-      ) {
-        setShow(false); // Close the popup
+        setShow(false)
       }
+      
     }
 
     // Attach the click event listener to the document
     document.addEventListener("mousedown",handleClickOutside );
-
-    // Cleanup the event listener
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    
   }, []); 
 
   return (
@@ -44,11 +42,17 @@ function App() {
           Add Employee
         </button>
       </div>
-      <div  className="w-[100%] h-[400px] border border-black"></div>
+      <div  className="w-[100%] h-[400px] border flex  items-center border-black">
+        <EmployerList/>
+        <Employer/>
+      </div>
 
       {show && (
-        <div >
-          <PopupBar popupRef={popupRef}  />
+        <div className=" fixed inset-0 flex items-center justify-center  bg-gray-300 bg-opacity-10 backdrop-blur-sm " >
+          {/* <div ref={popupRef} >
+            <Form/>
+          </div> */}
+          <PopupBar setShow= {setShow} popupRef={popupRef}/>
         </div>
       )}
     </div>
