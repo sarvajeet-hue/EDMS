@@ -54,6 +54,9 @@ function App() {
           </div> */}
           <PopupBar setShow= {setShow} popupRef={popupRef}/>
         </div>
+        // <div>
+        //   <PopupBar popupRef={popupRef} />
+        // </div>
       )}
     </div>
   );
