@@ -16,6 +16,8 @@ export const slice = createSlice({
         },
         removeData : (state , action) => {
             state.employeeData = state.employeeData.filter((_,index) => index !== action.payload )
+            state.currentData = [action.payload]
+            localStorage.setItem("currentData" , JSON.stringify(state.currentData))
             localStorage.setItem("employeeData" , JSON.stringify(state.employeeData))
         }, 
         showCurrentData : (state , action) => {
