@@ -2,7 +2,7 @@ import { createSlice, current } from "@reduxjs/toolkit"
 
 const initialState = {
     employeeData: JSON.parse(localStorage.getItem("employeeData")) || [],
-    currentData : []
+    currentData : JSON.parse(localStorage.getItem("currentData")) || [],
 }
 
 export const slice = createSlice({
@@ -19,7 +19,9 @@ export const slice = createSlice({
             localStorage.setItem("employeeData" , JSON.stringify(state.employeeData))
         }, 
         showCurrentData : (state , action) => {
-            state.currentData.push(action.payload)
+            state.currentData = [action.payload]
+            localStorage.setItem("currentData" , JSON.stringify(state.employeeData))
+            
         }
         
     }

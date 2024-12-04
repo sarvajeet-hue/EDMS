@@ -10,14 +10,14 @@ export const EmployerList = () => {
     
     
     const {employeeData} = useSelector((state) => state.EmployeeReducer)
-    function filterationHandle(index){
-        let data = employeeData.filter((_ ,item) => {
+    function filterationHandle(data){
+        // let data = employeeData.filter((_ ,item) => {
             
-            return item === index
+        //     return item === index
 
-        })
-        console.log("data:", data) 
-        dispatch(showCurrentData(data[0]))
+        // })
+        // console.log("data:", data) 
+        dispatch(showCurrentData(data))
         
     }
     
@@ -29,7 +29,7 @@ export const EmployerList = () => {
                     employeeData.map((data , index) => {
                         return (
                             <div className="flex items-center justify-center gap-3" key={index}>
-                                <p onClick={() => filterationHandle(index)}>{data.FirstName}</p>
+                                <p onClick={() => filterationHandle(data)}>{data.FirstName}</p>
                                 <button className="border rounded-lg p-2" onClick={() => dispatch(removeData(index))}>X</button>
                             </div>
                         )
