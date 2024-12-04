@@ -1,9 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { removeData, showCurrentData } from "../Slices/SliceData";
+
 
 export const EmployerList = () => {
+    const dispatch = useDispatch()
+
+    
+    
+    
+    const {employeeData} = useSelector((state) => state.EmployeeReducer)
+    function filterationHandle(index){
+        let data = employeeData.filter((_ ,item) => {
+            
+            return item === index
+
+        })
+        console.log("data:", data) 
+        dispatch(showCurrentData(data[0]))
+        
+    }
+    
     return (
-        <div className="w-[50%] h-full border-r-2 border-black" >
-            Employerlist
+        <div className="text-center w-[50%] h-full border-r-2 border-black" >
+            EmployeeList
+            <div>
+                {
+                    employeeData.map((data , index) => {
+                        return (
+                            <div className="flex items-center justify-center gap-3" key={index}>
+                                <p onClick={() => filterationHandle(index)}>{data.FirstName}</p>
+                                <button className="border rounded-lg p-2" onClick={() => dispatch(removeData(index))}>X</button>
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }
