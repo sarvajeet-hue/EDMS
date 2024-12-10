@@ -16,7 +16,8 @@ export const EmployerList = () => {
         //     return item === index
 
         // })
-        // console.log("data:", data) 
+        console.log("data:", data) 
+
         dispatch(showCurrentData(data))
         
     }

@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 export const Employer = () => {
 
     const {employeeData , currentData } = useSelector((state) => state.EmployeeReducer)
     console.log("currentdata:", currentData)
+
+    useEffect(() => {
+        
+    })
     
 
     return (
